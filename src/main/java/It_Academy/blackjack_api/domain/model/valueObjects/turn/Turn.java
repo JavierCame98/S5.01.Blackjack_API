@@ -1,0 +1,4 @@
+package It_Academy.blackjack_api.domain.model.valueObjects.turn;
+
+public class Turn {
+}

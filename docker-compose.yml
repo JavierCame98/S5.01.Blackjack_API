@@ -1,0 +1,37 @@
+services:
+
+  # ── MongoDB (Game data) ───────────────────────────────────────────────────────
+  mongodb:
+    image: mongo:7.0
+    container_name: blackjack_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: blackjack
+    volumes:
+      - mongo_data:/data/db
+
+  # ── MySQL (Player data) ───────────────────────────────────────────────────────
+  mysql:
+    image: mysql:8.0
+    container_name: blackjack_mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: blackjack
+      MYSQL_USER: blackjack
+      MYSQL_PASSWORD: blackjack
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ublackjack", "-pblackjack"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mongo_data:
+  mysql_data:

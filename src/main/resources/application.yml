@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: blackjack_api
+
+  # ── MongoDB (Game data) ──────────────────────────────────────────────────────
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/blackjack
+      auto-index-creation: true
+
+  # ── MySQL via R2DBC (Player data) ───────────────────────────────────────────
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/blackjack
+    username: blackjack
+    password: blackjack
+    pool:
+      initial-size: 5
+      max-size: 10
+      max-idle-time: 30m
+
+  # ── Schema initialisation (creates players table on startup) ────────────────
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+
+# ── Server ─────────────────────────────────────────────────────────────────────
+server:
+  port: 8080
+
+# ── Swagger / OpenAPI ──────────────────────────────────────────────────────────
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha
+
+# ── Logging ────────────────────────────────────────────────────────────────────
+logging:
+  level:
+    root: INFO
+    It_Academy.blackjack_api: DEBUG
+    org.springframework.r2dbc: DEBUG
