@@ -14,7 +14,7 @@ public record Turn (
         return new Turn(TurnType.HIT, TurnOwner.PLAYER, card, LocalDateTime.now());
     }
 
-    public static Turn playerStand (Card card){
+    public static Turn playerStand (){
         return new Turn(TurnType.STAND, TurnOwner.PLAYER, null, LocalDateTime.now());
     }
 
