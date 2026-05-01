@@ -14,8 +14,7 @@ public record GameFinishedEvent (GameId gameId,
 
     public static GameFinishedEvent of(GameId gameId,
                                        PlayerId playerId,
-                                       GameStatus finalStatus,
-                                       LocalDateTime ocurredAt){
+                                       GameStatus finalStatus){
         return new GameFinishedEvent(gameId, playerId, finalStatus, LocalDateTime.now());
     }
 
