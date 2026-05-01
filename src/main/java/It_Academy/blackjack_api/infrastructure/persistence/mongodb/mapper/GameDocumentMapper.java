@@ -1,4 +1,4 @@
-package It_Academy.blackjack_api.infrastructure.persistence.mongodb;
+package It_Academy.blackjack_api.infrastructure.persistence.mongodb.mapper;
 
 import It_Academy.blackjack_api.domain.model.aggregate.Game;
 import It_Academy.blackjack_api.domain.model.valueObjects.card.Card;
@@ -13,7 +13,9 @@ import It_Academy.blackjack_api.domain.model.valueObjects.turn.Turn;
 import It_Academy.blackjack_api.domain.model.valueObjects.turn.TurnOwner;
 import It_Academy.blackjack_api.domain.model.valueObjects.turn.TurnType;
 import It_Academy.blackjack_api.infrastructure.persistence.mongodb.documents.*;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GameDocumentMapper {
 
     public GameDocument toDocument (Game game){

@@ -1,4 +1,4 @@
-package It_Academy.blackjack_api.infrastructure.persistence.mongodb;
+package It_Academy.blackjack_api.infrastructure.persistence.mongodb.repository;
 
 import It_Academy.blackjack_api.infrastructure.persistence.mongodb.documents.GameDocument;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;

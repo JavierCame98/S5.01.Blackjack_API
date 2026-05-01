@@ -18,7 +18,7 @@ public record PlayerName (String value){
         value = trimmed;
     }
 
-    public PlayerName of(String value){
+    public static PlayerName of(String value){
         return new PlayerName(value);
     }
 

@@ -28,6 +28,21 @@ public class Player {
 
     }
 
+    public static Player restore(PlayerId id, PlayerName name,
+                                 int gamesPlayed, int gamesWon,
+                                 int gamesLost, int gamesTied,
+                                 double winRate) {
+        Player p      = new Player();
+        p.id          = id;
+        p.name        = name;
+        p.gamesPlayed = gamesPlayed;
+        p.gamesWon    = gamesWon;
+        p.gamesLost   = gamesLost;
+        p.gamesTied   = gamesTied;
+        p.winRate     = winRate;
+        return p;
+    }
+
     // métodos para actualizar las estadísticas del player
     public void recordWin(){
         gamesPlayed++;
