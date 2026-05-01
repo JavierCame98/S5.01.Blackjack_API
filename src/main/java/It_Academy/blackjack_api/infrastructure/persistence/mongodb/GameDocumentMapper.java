@@ -2,9 +2,16 @@ package It_Academy.blackjack_api.infrastructure.persistence.mongodb;
 
 import It_Academy.blackjack_api.domain.model.aggregate.Game;
 import It_Academy.blackjack_api.domain.model.valueObjects.card.Card;
+import It_Academy.blackjack_api.domain.model.valueObjects.card.Rank;
+import It_Academy.blackjack_api.domain.model.valueObjects.card.Suit;
 import It_Academy.blackjack_api.domain.model.valueObjects.game.Deck;
+import It_Academy.blackjack_api.domain.model.valueObjects.game.GameId;
+import It_Academy.blackjack_api.domain.model.valueObjects.game.GameStatus;
 import It_Academy.blackjack_api.domain.model.valueObjects.game.Hand;
+import It_Academy.blackjack_api.domain.model.valueObjects.player.PlayerId;
 import It_Academy.blackjack_api.domain.model.valueObjects.turn.Turn;
+import It_Academy.blackjack_api.domain.model.valueObjects.turn.TurnOwner;
+import It_Academy.blackjack_api.domain.model.valueObjects.turn.TurnType;
 import It_Academy.blackjack_api.infrastructure.persistence.mongodb.documents.*;
 
 public class GameDocumentMapper {
@@ -41,5 +48,38 @@ public class GameDocumentMapper {
                 turn.localDateTime());
     }
 
+    public Game toDomain (GameDocument doc){
+        Game game = Game.restore(
+                GameId.of(doc.getId()),
+                PlayerId.of(Long.valueOf(doc.getPlayerId())),
+                toHand(doc.getPlayerHand()),
+                toHand(doc.getDealerHand()),
+                toDeck(doc.getDeck()),
+                GameStatus.valueOf(doc.getStatus()),
+                doc.getTurns().stream().map(this::toTurn).toList());
 
+        return game;
+    }
+
+    private Hand toHand (HandDocument doc){
+        return Hand.of(doc.getCards().stream().map(this::toCard).toList());
+    }
+
+    private Deck toDeck (DeckDocument doc){
+        return Deck.fromCards(doc.getCards().stream().map(this::toCard).toList());
+    }
+
+    private Card toCard(CardDocument doc) {
+        return new Card( Suit.valueOf(doc.getSuit()),Rank.valueOf(doc.getRank()));
+    }
+
+    private Turn toTurn (TurnDocument doc){
+        Card card = doc.getCard() != null ? toCard(doc.getCard()) : null;
+        return new Turn(
+                TurnType.valueOf(doc.getType()),
+                TurnOwner.valueOf(doc.getOwner()),
+                card,
+                doc.getLocalDateTime()
+        );
+    }
 }

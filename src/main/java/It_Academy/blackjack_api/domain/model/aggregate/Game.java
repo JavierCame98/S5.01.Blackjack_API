@@ -40,6 +40,21 @@ public class Game {
         return game;
     }
 
+    //reconstitution factory
+    public static Game restore(GameId gameId, PlayerId playerId, Hand playerHand,
+                               Hand dealerHand, Deck deck,  GameStatus status,
+                               List<Turn> turns){
+        Game game = new Game();
+        game.id = gameId;
+        game.playerId = playerId;
+        game.playerHand = playerHand;
+        game.dealerHand = dealerHand;
+        game.deck = deck;
+        game.gameStatus = status;
+        game.turns = new ArrayList<>(turns);
+        return game;
+    }
+
     public void hit(){
         validateIsPlaying();
         Card card = deck.draw();

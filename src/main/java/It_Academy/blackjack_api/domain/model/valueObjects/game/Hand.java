@@ -49,6 +49,14 @@ public class Hand {
         return total;
     }
 
+    //añadimos el Factory method para rehidratación de estado. Toma una lista de cartas que vienen
+    // de d.b Mongo y la pasa por el porceso de generar una una mano. Se usa para el Mapper (transformar HandDocument en Hand)
+    public static Hand of(List<Card> cards) {
+        Hand hand = Hand.empty();
+        for (Card card : cards) hand = hand.addCard(card);
+        return hand;
+    }
+
     public boolean isBalcjack(){
         return cards.size() == 2 && value == 21;
     }

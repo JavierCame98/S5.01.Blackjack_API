@@ -46,6 +46,10 @@ public class Deck {
         return cards.remove(0);
     }
 
+    public static Deck fromCards(List<Card> cards) {
+        return new Deck(new ArrayList<>(cards));
+    }
+
     //volver a barajar las restantes
     public void shuffle() {
         Collections.shuffle(cards);
