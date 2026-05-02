@@ -18,8 +18,8 @@ public class PlayGameUseCase {
     private final GameRepository gameRepository;
     private final DomainEventPublisher eventPublisher;
 
-    public Mono<Game> execute (String rawId, PlayGameCommand command){
-        GameId gameId = GameId.of(rawId);
+    public Mono<Game> execute (PlayGameCommand command){
+        GameId gameId = GameId.of(command.gameId());
         TurnType action = parseTurnType(command.action());
 
         return gameRepository.findById(gameId)
