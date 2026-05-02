@@ -5,11 +5,8 @@ import It_Academy.blackjack_api.domain.model.valueObjects.card.Rank;
 import It_Academy.blackjack_api.domain.model.valueObjects.card.Suit;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-import static org.apache.logging.log4j.ThreadContext.isEmpty;
 
 public class Deck {
 
