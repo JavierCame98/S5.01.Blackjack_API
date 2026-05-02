@@ -33,7 +33,7 @@ public class Game {
         game.playerHand = game.playerHand.addCard(game.deck.draw());
         game.playerHand = game.playerHand.addCard(game.deck.draw());
 
-        if(game.playerHand.isBalcjack()){
+        if(game.playerHand.isBlackjack()){
             game.gameStatus = GameStatus.PLAYER_WIN;
         }
 
