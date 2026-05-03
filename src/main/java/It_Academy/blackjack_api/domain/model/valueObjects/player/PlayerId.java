@@ -12,6 +12,10 @@ public record PlayerId (Long value) {
         return new PlayerId(value);
     }
 
+    public static PlayerId of(String value){
+        return new PlayerId(Long.valueOf(value));
+    }
+
     @Override
     public String toString() {
         return value.toString();
