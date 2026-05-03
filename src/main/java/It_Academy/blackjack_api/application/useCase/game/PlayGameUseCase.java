@@ -19,28 +19,29 @@ public class PlayGameUseCase {
     private final DomainEventPublisher eventPublisher;
 
     public Mono<Game> execute (PlayGameCommand command){
-        GameId gameId = GameId.of(command.gameId());
-        TurnType action = parseTurnType(command.action());
+        return Mono.defer(() -> {
+            GameId gameId = GameId.of(command.gameId());
+            TurnType action = parseTurnType(command.action());
 
-        return gameRepository.findById(gameId)
-                .flatMap(game -> {
-                    if(action == TurnType.HIT){
-                            game.hit();
-                    }else{
-                        game.stand();
-                    }
-                    if (game.getStatus().isFinished()) {
-                        eventPublisher.publish(
-                                GameFinishedEvent.of(
-                                        game.getId(),
-                                        game.getPlayerId(),
-                                        game.getStatus()
-                                )
-                        );
-                    }
-                    return gameRepository.save(game);
-                });
-
+            return gameRepository.findById(gameId)
+                    .flatMap(game -> {
+                        if(action == TurnType.HIT){
+                                game.hit();
+                        }else{
+                            game.stand();
+                        }
+                        if (game.getStatus().isFinished()) {
+                            eventPublisher.publish(
+                                    GameFinishedEvent.of(
+                                            game.getId(),
+                                            game.getPlayerId(),
+                                            game.getStatus()
+                                    )
+                            );
+                        }
+                        return gameRepository.save(game);
+                    });
+        });
     }
 
     private TurnType parseTurnType(String action) {

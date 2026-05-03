@@ -41,7 +41,7 @@ public class Hand {
             }
         }
 
-        while (total < 21 && aces > 0){
+        while (total > 21 && aces > 0){
             total -= 10;
             aces--;
         }

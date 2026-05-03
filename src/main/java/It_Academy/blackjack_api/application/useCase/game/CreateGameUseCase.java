@@ -19,11 +19,13 @@ public class CreateGameUseCase {
     private final PlayerRepository playerRepository;
 
     public Mono<Game> execute (CreateGameCommand command){
-        PlayerName name = PlayerName.of(command.playerName());
-        DeckCount deckCount = DeckCount.of(command.deckCount());
+        return Mono.defer(() -> {
+            PlayerName name      = PlayerName.of(command.playerName());
+            DeckCount  deckCount = DeckCount.of(command.deckCount());
 
-        return playerRepository.findByName(name)
-                .switchIfEmpty(playerRepository.save(Player.create(name)))
-                .flatMap(player -> gameRepository.save(Game.create(player.getId(), deckCount)));
+            return playerRepository.findByName(name)
+                    .switchIfEmpty(Mono.defer(() -> playerRepository.save(Player.create(name))))
+                    .flatMap(player -> gameRepository.save(Game.create(player.getId(), deckCount)));
+        });
     }
 }
