@@ -1,5 +1,6 @@
 package It_Academy.blackjack_api.infrastructure.persistence.mysql.adapter;
 
+import It_Academy.blackjack_api.application.exception.PlayerNotFoundException;
 import It_Academy.blackjack_api.domain.model.aggregate.Player;
 import It_Academy.blackjack_api.domain.model.valueObjects.player.PlayerId;
 import It_Academy.blackjack_api.domain.model.valueObjects.player.PlayerName;
@@ -29,7 +30,7 @@ public class PlayerRepositoryAdapter implements PlayerRepository {
         return  r2dbcRepository.findById(id.value())
                 .map(mapper::toDomain)
                 .switchIfEmpty(Mono.error(
-                        new IllegalArgumentException("Jugador no encontrado con id: " + id)));
+                        new PlayerNotFoundException(id.value().toString())));
     }
 
     @Override

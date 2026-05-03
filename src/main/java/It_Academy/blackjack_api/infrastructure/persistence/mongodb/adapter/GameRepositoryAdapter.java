@@ -1,5 +1,6 @@
 package It_Academy.blackjack_api.infrastructure.persistence.mongodb.adapter;
 
+import It_Academy.blackjack_api.application.exception.GameNotFoundException;
 import It_Academy.blackjack_api.domain.model.aggregate.Game;
 import It_Academy.blackjack_api.domain.model.valueObjects.game.GameId;
 import It_Academy.blackjack_api.domain.repository.GameRepository;
@@ -31,7 +32,7 @@ public class GameRepositoryAdapter implements GameRepository {
         return mongoRepository.findById(id.value())
                 .map(mapper::toDomain)
                 .switchIfEmpty(Mono.error(
-                        new IllegalArgumentException("Partida no encontrada con id: " + id)));
+                        new GameNotFoundException(id.value())));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package It_Academy.blackjack_api.domain.model.aggregate;
 
+import It_Academy.blackjack_api.application.exception.GameAlreadyFinishedException;
 import It_Academy.blackjack_api.domain.model.valueObjects.card.Card;
 import It_Academy.blackjack_api.domain.model.valueObjects.game.*;
 import It_Academy.blackjack_api.domain.model.valueObjects.player.PlayerId;
@@ -56,6 +57,9 @@ public class Game {
     }
 
     public void hit(){
+        if (gameStatus != GameStatus.PLAYING) {
+            throw new GameAlreadyFinishedException(id.value());
+        }
         validateIsPlaying();
         Card card = deck.draw();
         playerHand = playerHand.addCard(card);
@@ -67,6 +71,9 @@ public class Game {
     }
 
     public void stand() {
+        if (gameStatus != GameStatus.PLAYING) {
+            throw new GameAlreadyFinishedException(id.value());
+        }
         validateIsPlaying();
 
         turns.add(Turn.playerStand());
