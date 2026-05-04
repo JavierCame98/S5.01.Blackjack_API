@@ -1,0 +1,19 @@
+# Compilados — los genera la etapa build del Dockerfile
+target/
+
+# Control de versiones
+.git/
+.gitignore
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Maven wrapper (ya está en la imagen maven:3.9)
+.mvn/
+
+# Documentación y ficheros que no afectan al build
+README.md
+HELP.md
+*.md

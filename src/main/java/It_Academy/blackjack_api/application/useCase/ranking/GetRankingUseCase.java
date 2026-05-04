@@ -12,7 +12,7 @@ public class GetRankingUseCase {
 
     private final PlayerRepository playerRepository;
 
-    public Flux<Player> exectue (){
+    public Flux<Player> execute (){
         return playerRepository.findAllOrderByWinRatesDesc();
     }
 }

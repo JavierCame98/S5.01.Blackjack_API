@@ -7,6 +7,7 @@ import It_Academy.blackjack_api.infrastructure.web.dto.response.PlayerResponse;
 import It_Academy.blackjack_api.infrastructure.web.mapper.PlayerResponseMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Player", description = "Gestión de jugadores")
 public class PlayerController {
 
     private final UpdatePlayerNameUseCase updatePlayerNameUseCase;
