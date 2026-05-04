@@ -27,6 +27,7 @@ spring:
 # ── Server ─────────────────────────────────────────────────────────────────────
 server:
   port: 8080
+  forward-headers-strategy: framework
 
 # ── Swagger / OpenAPI ──────────────────────────────────────────────────────────
 springdoc:
@@ -35,6 +36,10 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
     operations-sorter: alpha
+    use-root-path: true
+  webflux:
+        core:
+          enabled: true
 
 # ── Logging ────────────────────────────────────────────────────────────────────
 logging:
